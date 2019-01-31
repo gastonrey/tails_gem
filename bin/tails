@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+
+require 'tails/tails'
+require 'optparse'
+
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: tails [options]"
+
+  opts.separator ""
+  opts.separator "Options:"
+
+  opts.on("-l", "--log-path /path/to/file", "Log file path") do |log_file|
+    Tails::Subscribers.logs_file = log_file
+  end
+
+  opts.on("-N", "--namespace [MODULE::CLASS]", "Your module and class subscriber") do |namespace|
+    Dir["./*.rb"].each {|file| load file}
+    Tails::Subscribers.new(namespace)
+  end
+
+  opts.on("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end
+
+parser.parse!
