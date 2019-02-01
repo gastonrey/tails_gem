@@ -15,9 +15,10 @@ parser = OptionParser.new do |opts|
     Tails::Subscribers.logs_file = log_file
   end
 
-  opts.on("-N", "--namespace [MODULE::CLASS]", "Your module and class subscriber") do |namespace|
+  opts.on("-n", "--namespace [MODULE::CLASS]", "Your module and class subscriber") do |namespace|
     Dir["./*.rb"].each {|file| load file}
-    Tails::Subscribers.new(namespace)
+    yaml_file_path = File.expand_path(Dir.glob('tails.yml').first) rescue nil
+    Tails::Subscribers.new(namespace, yaml_file_path)
   end
 
   opts.on("-h", "--help", "Show this message") do

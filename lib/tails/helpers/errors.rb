@@ -1,39 +1,65 @@
 # frozen_string_literal: true
 
-module Helpers
-  module SubscriberErrors
-    module_function
+module Tails
+  module Helpers
+    module SubscriberErrors
+      module_function
 
-    def logger
-      @logger ||= Slogger.new.log
-    end
-
-    class TopicNotFound < StandardError; end
-
-    class RequestError < StandardError
-      def initialize(url, response)
-        SubscriberErrors.logger.error(
-          "ERROR Trying to make a request to: #{url} \n" \
-          "Server response message: \n" \
-          "#{response.return_message}\n" \
-          "Response Code: #{response.response_code}"
-        )
+      def logger
+        @logger ||= Slogger.new.log
       end
-    end
 
-    class StompConnectionError < StandardError
-      def initialize(error)
-        SubscriberErrors.logger.error(
-          'Connection error, could not subscribe to events. ' \
-          "Please check activeMQ configurations \n" \
-          "Error: #{error.message}"
-        )
+      class TopicNotFound < StandardError; end
+
+      class RequestError < StandardError
+        def initialize(url, response)
+          SubscriberErrors.logger.error(
+            "ERROR Trying to make a request to: #{url} \n" \
+            "Server response message: \n" \
+            "#{response.return_message}\n" \
+            "Response Code: #{response.response_code}"
+          )
+        end
       end
-    end
 
-    class ErrorParsingBody < StandardError
-      def initialize(body)
-        SubscriberErrors.logger.error("Error parsing body: \n\t #{body}")
+      class StompConnectionError < StandardError
+        def initialize(error)
+          SubscriberErrors.logger.error(
+            'Connection error, could not subscribe to events. ' \
+            "Please check activeMQ configurations \n" \
+            "Error: #{error.message}"
+          )
+        end
+      end
+
+      class ErrorParsingBody < StandardError
+        def initialize(body)
+          SubscriberErrors.logger.error("Error parsing body: \n\t #{body}")
+        end
+      end
+
+      class NoNameSpaceProvided < StandardError
+        def initialize
+          SubscriberErrors.logger.error(
+            "Please provide an existing name space, i.e: Module::ClassName")
+        end
+      end
+      
+      class EventTypeNotPresent < StandardError
+        def initialize
+          SubscriberErrors.logger.error(
+            "Please provide an existing event type in ActiveMQ")
+        end
+      end
+
+      class NoYamlConfigFile < StandardError
+        def initialize
+          message = "tails.yml config file is not present. " \
+                    "Create one and setup there all the info to be subscribed"
+          
+          super(message)
+          SubscriberErrors.logger.error(message)
+        end
       end
     end
   end

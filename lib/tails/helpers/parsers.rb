@@ -22,8 +22,7 @@ module Tails
       end
 
       def raw_data(file)
-        path = File.join(File.expand_path('../../../', __dir__), "/#{file}")
-        raw_yaml = File.open(path).read
+        raw_yaml = File.open(file).read
         ERB.new(raw_yaml).result
       rescue Errno::ENOENT
         raise "Could not open file: #{path}"
@@ -36,7 +35,7 @@ module Tails
       end
 
       def class_from_string(str)
-        str.to_s.split('::').inject(Object) do |mod, class_name|
+        str.class.to_s.split('::').inject(Object) do |mod, class_name|
           mod.const_get(class_name)
         end
       end
@@ -48,7 +47,7 @@ module Tails
 
         klass_name = class_from_string(klass_string).name
 
-        "Consumer.#{klass_name}.VirtualTopic.#{event_type}"
+        "Consumer.#{klass_name.gsub('::', '_')}.VirtualTopic.#{event_type}"
       end
     end
   end
