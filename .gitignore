@@ -17,7 +17,8 @@
 /vendor
 supervisord.log
 logs/subscriber.log
-/log*
+*.log
+logs/*
 supervisord.pid
 proc
 

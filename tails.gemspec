@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
   s.files       += Dir.glob("helpers/**/*")
   s.files       += Dir.glob("bin/**/*")
   s.files       += Dir.glob("config/**/*")
+  s.files       += Dir.glob("samples/**/*")
+  s.files       += Dir.glob("README.md")
   s.require_paths = ["lib/tails", "lib/tails/helpers", "config"]
   s.executables       = [ "tails" ]
   s.homepage      = ""
@@ -23,6 +25,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'typhoeus'
   s.add_dependency 'require_all'
+  s.add_dependency 'stomp'
 
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'simplecov'

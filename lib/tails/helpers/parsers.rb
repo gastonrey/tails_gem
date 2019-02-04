@@ -25,7 +25,7 @@ module Tails
         raw_yaml = File.open(file).read
         ERB.new(raw_yaml).result
       rescue Errno::ENOENT
-        raise "Could not open file: #{path}"
+        raise "Could not open file: #{file}"
       end
 
       def parse(body)

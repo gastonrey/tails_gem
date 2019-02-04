@@ -10,7 +10,7 @@ module Tails
   class Subscribers
     include Helpers::Parsers
 
-    attr_reader :message
+    attr_reader :message, :worker
 
     def initialize(worker, config_file_path)
       unless config_file_path
@@ -20,7 +20,7 @@ module Tails
       @logger = Helpers::Slogger.new.log
       @subscriber_config = 
         load_configuration_from(config_file_path)
-    
+      
       setup_worker_and_event_type(worker)
       subscribe_and_dispatch
     end
@@ -30,7 +30,14 @@ module Tails
 
       subscribe(@event_type) do |message|
         @message = message
-        @worker.perform(message) if valid?(message)
+        begin
+          if valid?(message)
+            @worker.perform(message)
+            client.ack message
+          end
+        rescue Exception => e
+          raise Helpers::SubscriberErrors::ErrorPerformingMessage, e
+        end
       end
       client.join
     end
@@ -42,7 +49,7 @@ module Tails
       raise Helpers::SubscriberErrors::NoNameSpaceProvided.new unless @worker
 
       @event_type = @worker.event_type
-      raise EventTypeNotPresent.new unless @event_type
+      raise Helpers::SubscriberErrors::EventTypeNotPresent.new unless @event_type
     end
 
     def subscribe(event)

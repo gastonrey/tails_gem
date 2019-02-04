@@ -61,6 +61,16 @@ module Tails
           SubscriberErrors.logger.error(message)
         end
       end
+
+      class ErrorPerformingMessage < StandardError
+        def initialize(e)
+          message = "Error trying to perform with message: \n" \
+                    "\t Exception: #{e.message}"
+          
+          super(message)
+          SubscriberErrors.logger.error(message)
+        end
+      end
     end
   end
 end
