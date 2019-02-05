@@ -34,20 +34,12 @@ module Tails
         raise Helpers::SubscriberErrors::ErrorParsingBody, body
       end
 
-      def class_from_string(str)
-        str.class.to_s.split('::').inject(Object) do |mod, class_name|
-          mod.const_get(class_name)
-        end
-      end
-
-      def build_queue_name(event_type, klass_string)
+      def build_queue_name(event_type, klass)
         if event_type.include? '::'
           event_type = event_type.split('::').map(&:capitalize).join
         end
 
-        klass_name = class_from_string(klass_string).name
-
-        "Consumer.#{klass_name.gsub('::', '_')}.VirtualTopic.#{event_type}"
+        "Consumer.#{klass.class.name.gsub('::', '_')}.VirtualTopic.#{event_type}"
       end
     end
   end

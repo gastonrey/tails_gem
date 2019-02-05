@@ -6,12 +6,13 @@ describe Tails::Subscribers do
   context "When it's been initialized" do
     before do
       client = instance_double(Stomp::Client)
+      worker = instance_double(Dummy::Worker, :perform => true)
   
       allow(Stomp::Client).to receive(:new).and_return client
       allow(client).to receive(:subscribe).and_yield(@message)
       allow(client).to receive(:join).and_return(true)
       allow(client).to receive(:ack).and_return(true)
-      allow(Dummy::Worker).to receive(:new).and_return()
+      allow(Dummy::Worker).to receive(:new).and_return(worker)
     end
   
     let(:described_class_instance) do
