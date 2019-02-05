@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.executables       = [ "tails" ]
   s.homepage      = ""
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
-  s.required_ruby_version = '>= 2.5.3'
+  s.required_ruby_version = '>= 2.6'
 
   s.add_dependency 'typhoeus'
   s.add_dependency 'require_all'
