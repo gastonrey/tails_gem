@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.files       += Dir.glob("samples/**/*")
   s.files       += Dir.glob("README.md")
   s.bindir        = "bin"
-  s.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ["lib/tails", "lib/tails/helpers", "config"]
   s.homepage      = ""
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
