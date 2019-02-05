@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'securerandom'
-require 'helpers/parsers'
-require 'helpers/slogger'
-require 'helpers/errors'
-require 'worker'
+require 'tails/helpers/parsers'
+require 'tails/helpers/slogger'
+require 'tails/helpers/errors'
+require 'tails/worker'
 
 module Tails
   class Subscribers
