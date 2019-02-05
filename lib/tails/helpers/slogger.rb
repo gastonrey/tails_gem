@@ -12,7 +12,7 @@ module Tails
     class Slogger < ::Stomp::NullLogger
       attr_reader :log
 
-      LOG_FILE = '/var/log/tails.log'
+      LOG_FILE = 'logs/tails.log'
 
       # Initialize a new callback logger instance.
       def initialize(file_path = nil)
@@ -22,7 +22,7 @@ module Tails
 
       def _init(file_path)
         output = file_path.nil? ? LOG_FILE : file_path
-        @log = ::Logger.new(output)
+        @log ||= ::Logger.new(output)
         @log.level = Logger::DEBUG
       end
 

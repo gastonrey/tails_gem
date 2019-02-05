@@ -17,9 +17,10 @@ module Tails
         raise Helpers::SubscriberErrors::NoYamlConfigFile.new
       end
 
-      @logger = Helpers::Slogger.new.log
       @subscriber_config = 
-        load_configuration_from(config_file_path)
+      load_configuration_from(config_file_path)
+      
+      @logger = Helpers::Slogger.new.log
       
       setup_worker_and_event_type(worker)
       subscribe_and_dispatch
@@ -69,7 +70,8 @@ module Tails
       @client ||= Stomp::Client.new(@subscriber_config)
     rescue  Timeout::Error,
             Errno::EINVAL,
-            Errno::ECONNRESET => e
+            Errno::ECONNRESET,
+            Stomp::Error::MaxReconnectAttempts => e
 
       raise Helpers::SubscriberErrors::StompConnectionError, e
     end

@@ -5,6 +5,16 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'tails/tails'
 require 'optparse'
 
+class String
+  def underscore
+    self.gsub(/::/, '/').
+    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    tr("-", "_").
+    downcase
+  end
+end
+
 parser = OptionParser.new do |opts|
   opts.banner = "Usage: tails [options]"
 
@@ -16,8 +26,8 @@ parser = OptionParser.new do |opts|
   end
 
   opts.on("-n", "--namespace [MODULE::CLASS]", "Your module and class subscriber") do |namespace|
-    Dir["./*.rb"].each {|file| load file}
-    yaml_file_path = File.expand_path(Dir.glob('tails.yml').first) rescue nil
+    Dir["./#{namespace.underscore}*.rb"].each {|file| require file}
+    yaml_file_path = File.expand_path(Dir.glob('config/tails.yml').first) rescue nil
     Tails::Subscribers.new(namespace, yaml_file_path)
   end
 
