@@ -35,10 +35,6 @@ module Tails
       end
 
       def build_queue_name(event_type, klass)
-        if event_type.include? '::'
-          event_type = event_type.split('::').map(&:capitalize).join
-        end
-
         "Consumer.#{klass.class.name.gsub('::', '_')}.VirtualTopic.#{event_type}"
       end
     end
