@@ -1,8 +1,0 @@
-I, [2019-01-31T16:29:02.809316 #45954]  INFO -- : Logger initialization complete.
-I, [2019-01-31T16:47:00.218669 #46116]  INFO -- : Logger initialization complete.
-I, [2019-01-31T16:47:07.195619 #46116]  INFO -- : Subscribed to NewDevice. Received message {"data":{"device_id":"234234234234"},"metadata":{"event_type":"DeviceCreated","timestamp":1548949627168}}
-I, [2019-01-31T16:47:08.178881 #46116]  INFO -- : Subscribed to NewDevice. Received message {"data":{"device_id":"234234234234"},"metadata":{"event_type":"DeviceCreated","timestamp":1548949628169}}
-I, [2019-01-31T16:50:01.570354 #46264]  INFO -- : Logger initialization complete.
-I, [2019-01-31T16:51:02.891614 #46366]  INFO -- : Logger initialization complete.
-I, [2019-01-31T16:51:48.445199 #46434]  INFO -- : Logger initialization complete.
-I, [2019-01-31T16:52:27.045897 #46522]  INFO -- : Logger initialization complete.
