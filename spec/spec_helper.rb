@@ -13,7 +13,8 @@ require 'require_all'
 require 'rspec'
 require 'byebug'
 require 'webmock/rspec'
-require 'tails/tails'
+require_rel '../lib/tails/tails'
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 require_rel '../lib/tails/helpers/errors'
 
 # Disable webrequests

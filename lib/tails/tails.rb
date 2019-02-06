@@ -18,7 +18,7 @@ module Tails
       end
 
       @subscriber_config = 
-      load_configuration_from(config_file_path)
+        load_configuration_from(config_file_path)
       
       @logger = Helpers::Slogger.new.log
       
@@ -49,7 +49,7 @@ module Tails
       @worker = Object.const_get(worker).new rescue nil
       raise Helpers::SubscriberErrors::NoNameSpaceProvided.new unless @worker
 
-      @event_type = @worker.event_type
+      @event_type = @worker.event_type rescue nil
       raise Helpers::SubscriberErrors::EventTypeNotPresent.new unless @event_type
     end
 

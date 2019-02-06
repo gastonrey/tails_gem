@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Tails::Subscribers do
-  include_context 'Message type', 'ERROR'
+  include_context 'Message type'
 
   context "When it's been initialized" do
     before do
@@ -22,14 +22,14 @@ describe Tails::Subscribers do
       described_class.new('Worker::Dummy', './spec/helpers/tails.yml')
     end
 
-    describe 'When #subscribe_and_dispatch is invoked with an invalid message' do
-      it 'Then #perform is never called' do
-        expect(@worker).not_to receive(:perform)
+    describe 'When #subscribe_and_dispatch is invoked with a valid message' do
+      it 'Then #perform is called' do
+        expect(@worker).to receive(:perform)
         described_class_instance
       end
 
-      it "Then ACK is never called for given message" do
-        expect(@client).not_to receive(:ack)
+      it "Then #ACK is called for given message" do
+        expect(@client).to receive(:ack)
         described_class_instance
       end
     end

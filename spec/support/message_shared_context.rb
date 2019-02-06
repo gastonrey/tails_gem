@@ -1,4 +1,4 @@
-describe "Message type" do |type='Success'|
+shared_context "Message type" do |type='Success'|
   before do
     @message = instance_double( 'Stomp::Message',
                                 'command' => type,
