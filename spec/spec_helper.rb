@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'bundler/setup'
 Bundler.setup
 
@@ -14,7 +15,7 @@ require 'rspec'
 require 'byebug'
 require 'webmock/rspec'
 require_rel '../lib/tails/tails'
-Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 require_rel '../lib/tails/helpers/errors'
 
 # Disable webrequests

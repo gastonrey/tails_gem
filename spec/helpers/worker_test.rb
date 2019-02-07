@@ -3,7 +3,7 @@
 module Worker
   class Dummy < Tails::Worker
     def event_type
-      "NewDevice"
+      'NewDevice'
     end
 
     def perform(msg)

@@ -10,8 +10,4 @@ With all the configurations set up then execute the tails command as follow:
 
 `bundle exec tails -n Sonic::DeviceCreated`
 
-The parameter `-n`refers to the namespace, this is your worker module + class. This can also be set at tails.yml setting a key as follow:
-
-```
-namespace: 'Sonic::DeviceCreated'
-```
+The parameter `-n` refers to the namespace, this is your worker module + class.
