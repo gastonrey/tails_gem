@@ -4,6 +4,7 @@ connect_headers: &connect_headers
   heart-beat: "59000,59000"
 
 default: &default
+  log_file: logs/tails.log
   hosts:
     -
       host: activemq

@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.email       = 'grey@netquest.com'
   s.files       = Dir.glob("lib/**/*")
   s.files       += Dir.glob("helpers/**/*")
-  s.files       += Dir.glob("bin/**/*")
+  s.files       += Dir.glob("bin/*")
   s.files       += Dir.glob("config/**/*")
   s.files       += Dir.glob("samples/**/*")
   s.files       += Dir.glob("README.md")

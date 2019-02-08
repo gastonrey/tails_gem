@@ -20,7 +20,9 @@ module Tails
       @subscriber_config = 
         load_configuration_from(config_file_path)
       
-      @logger = Helpers::Slogger.new.log
+      @logger = Helpers::Slogger.new(
+        @subscriber_config.fetch(:log_file, nil)
+      ).log
       
       setup_worker_and_event_type(worker)
       subscribe_and_dispatch
@@ -33,7 +35,7 @@ module Tails
         @message = message
         begin
           if valid?(message)
-            @worker.perform(message)
+            @worker.perform(message.body)
             client.ack message
           end
         rescue Exception => e
